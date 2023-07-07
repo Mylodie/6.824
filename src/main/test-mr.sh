@@ -5,7 +5,7 @@
 #
 
 # comment this out to run the tests without the Go race detector.
-#RACE=-race
+RACE=-race
 
 if [[ "$OSTYPE" = "darwin"* ]]
 then

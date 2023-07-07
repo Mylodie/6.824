@@ -59,14 +59,14 @@ func (c *Coordinator) Example(args *ExampleArgs, reply *ExampleReply) error {
 	return nil
 }
 
-func (c Coordinator) DoPoll(_ *PollingRequest, response *PollingResponse) error {
+func (c *Coordinator) DoPoll(_ *PollingRequest, response *PollingResponse) error {
 	msg := &pollingMsg{response: response, ok: make(chan struct{})}
 	c.pollingCh <- msg
 	<-msg.ok
 	return nil
 }
 
-func (c Coordinator) DoReport(request *ReportRequest, _ *ReportResponse) error {
+func (c *Coordinator) DoReport(request *ReportRequest, _ *ReportResponse) error {
 	msg := &reportMsg{request: request, ok: make(chan struct{})}
 	c.reportCh <- msg
 	<-msg.ok

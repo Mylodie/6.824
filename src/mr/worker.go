@@ -82,7 +82,6 @@ func doReduceTask(reduceF func(string, []string) string, response *PollingRespon
 	//}
 
 	for _, ImFile := range response.ImFiles {
-		log.Println(ImFile)
 		f, err := os.Open(ImFile)
 		if err != nil {
 			log.Println("fail to open", ImFile)
@@ -130,7 +129,6 @@ func Worker(mapf func(string, string) []KeyValue, reducef func(string, []string)
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 	defer logfile.Close()
 
-	log.Println("Worker launched.")
 	for {
 		if response, ok := pollCoordinator(); ok {
 			switch response.TaskType {

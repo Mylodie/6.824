@@ -1,0 +1,2002 @@
+Test (2A): initial election ...
+  ... Passed --   3.7  3   64   18498    0
+Test (2A): election after network failure ...
+  ... Passed --   5.6  3  134   28123    0
+Test (2A): multiple elections ...
+fatal error: sync: Unlock of unlocked RWMutex
+
+goroutine 1177 [running]:
+sync.fatal({0x642773?, 0xc0001c8b40?})
+	/usr/lib/go/src/runtime/panic.go:1031 +0x1e
+sync.(*RWMutex).Unlock(0xc0004e61e0)
+	/usr/lib/go/src/sync/rwmutex.go:209 +0x4a
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x1)
+	/root/6.824/src/raft/raft.go:511 +0x2b4
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1 [chan receive]:
+testing.(*T).Run(0xc000007ba0, {0x63d92d?, 0x50e4c5?}, 0x64b5a8)
+	/usr/lib/go/src/testing/testing.go:1630 +0x405
+testing.runTests.func1(0x7cd9a0?)
+	/usr/lib/go/src/testing/testing.go:2036 +0x45
+testing.tRunner(0xc000007ba0, 0xc000059c88)
+	/usr/lib/go/src/testing/testing.go:1576 +0x10b
+testing.runTests(0xc0001120a0?, {0x7c8f60, 0x1a, 0x1a}, {0xc00010a958?, 0x100c000059d10?, 0x7cd100?})
+	/usr/lib/go/src/testing/testing.go:2034 +0x489
+testing.(*M).Run(0xc0001120a0)
+	/usr/lib/go/src/testing/testing.go:1906 +0x63a
+main.main()
+	_testmain.go:97 +0x1aa
+
+goroutine 581 [sleep]:
+time.Sleep(0x1b1ebfc0)
+	/usr/lib/go/src/runtime/time.go:195 +0x135
+6.824/raft.(*config).checkOneLeader(0xc0000da140)
+	/root/6.824/src/raft/config.go:435 +0xa5
+6.824/raft.TestManyElections2A(0x688d00?)
+	/root/6.824/src/raft/test_test.go:123 +0x16f
+testing.tRunner(0xc0004c7040, 0x64b5a8)
+	/usr/lib/go/src/testing/testing.go:1576 +0x10b
+created by testing.(*T).Run
+	/usr/lib/go/src/testing/testing.go:1629 +0x3ea
+
+goroutine 767 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0bc0, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc0002db3c0}, {0x5eed40, 0xc000097aa0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 8 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc000015b10, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc00014a000, 0x1)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 9 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc000015b50, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc00014a000, 0x2)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 888 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0640, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc000356100}, {0x5eed40, 0xc00001dc40})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 11 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc000015ad0, 0x1f)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).applier(0xc00014a000)
+	/root/6.824/src/raft/raft.go:639 +0x17f
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:706 +0x50a
+
+goroutine 12 [chan receive]:
+6.824/raft.(*config).applier(0xc000148000, 0x0, 0x0?)
+	/root/6.824/src/raft/config.go:162 +0x8d
+created by 6.824/raft.(*config).start1
+	/root/6.824/src/raft/config.go:328 +0x62e
+
+goroutine 13 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc000015f90, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc00014a0f0, 0x0)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 14 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc000015fd0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc00014a0f0, 0x2)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 1103 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0620, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0001bd780}, {0x5eed40, 0xc0001974c0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 16 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc000015f50, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).applier(0xc00014a0f0)
+	/root/6.824/src/raft/raft.go:639 +0x17f
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:706 +0x50a
+
+goroutine 17 [chan receive]:
+6.824/raft.(*config).applier(0xc000148000, 0x1, 0x0?)
+	/root/6.824/src/raft/config.go:162 +0x8d
+created by 6.824/raft.(*config).start1
+	/root/6.824/src/raft/config.go:328 +0x62e
+
+goroutine 18 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc000152150, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc00014a1e0, 0x0)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 19 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc000152190, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc00014a1e0, 0x1)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 1010 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0500, {0x63ca5c?, 0x406620?}, {0x5eee40, 0xc0004b4e20}, {0x5eee80, 0xc0004802f0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x2)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 21 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc000152110, 0x1f)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).applier(0xc00014a1e0)
+	/root/6.824/src/raft/raft.go:639 +0x17f
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:706 +0x50a
+
+goroutine 22 [chan receive]:
+6.824/raft.(*config).applier(0xc000148000, 0x2, 0x0?)
+	/root/6.824/src/raft/config.go:162 +0x8d
+created by 6.824/raft.(*config).start1
+	/root/6.824/src/raft/config.go:328 +0x62e
+
+goroutine 228 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0001ffd10, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x3000000005eed00?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0003a8000, 0x2)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 227 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0001ffcd0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x5f86a0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0003a8000, 0x1)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 426 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb600, {0x63ca5c?, 0x0?}, {0x5eee40, 0xc0002e3e20}, {0x5eee80, 0xc000341a50})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x1)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 422 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7c0, {0x63d3bf?, 0x0?}, {0x5eed00, 0xc00048c080}, {0x5eed40, 0xc0002e3dc0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 421 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7a0, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc00048c240}, {0x5eed40, 0xc0002e3de0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 968 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0640, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc000374500}, {0x5eed40, 0xc0002e2e40})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 441 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb6c0, {0x63ca5c?, 0x406620?}, {0x5eee40, 0xc00038d9c0}, {0x5eee80, 0xc000341c90})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x0)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 1030 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0620, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc000375ec0}, {0x5eed40, 0xc0002e3880})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 474 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7a0, {0x63d3bf?, 0x0?}, {0x5eed00, 0xc0003c6e40}, {0x5eed40, 0xc00038da80})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 863 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0640, {0x63d3bf?, 0xc0003900c0?}, {0x5eed00, 0xc00048c3c0}, {0x5eed40, 0xc00038c820})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1033 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06a0, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc0004ce080}, {0x5eed40, 0xc0002e38a0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x4)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 463 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb6c0, {0x63ca5c?, 0x406620?}, {0x5eee40, 0xc0002e3f60}, {0x5eee80, 0xc0003b9100})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x0)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 1127 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0540, {0x63d3bf?, 0xc0002f1d80?}, {0x5eed00, 0xc0005ee000}, {0x5eed40, 0xc0005d6a60})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e60f0, 0x4)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 847 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d03c0, {0x63ca5c?, 0x406620?}, {0x5eee40, 0xc00026bf00}, {0x5eee80, 0xc000099ba0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x3)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 1145 [select]:
+6.824/labrpc.(*Network).processReq(0xc0000c95e0, {{0x5f86a0, 0xc00048bb20}, {0x63d3bf, 0x12}, {0x688d00, 0x5eed00}, {0xc0003eda00, 0xc1, 0x100}, ...})
+	/root/6.824/src/labrpc/labrpc.go:251 +0x3f7
+created by 6.824/labrpc.MakeNetwork.func1
+	/root/6.824/src/labrpc/labrpc.go:157 +0x39
+
+goroutine 875 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0900, {0x63ca5c?, 0xc0004a38c0?}, {0x5eee40, 0xc00001ce80}, {0x5eee80, 0xc000099480})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x1)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 1057 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0620, {0x63d3bf?, 0xc0000c5e00?}, {0x5eed00, 0xc0004cfd40}, {0x5eed40, 0xc0002e3940})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1032 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0680, {0x63d3bf?, 0x0?}, {0x5eed00, 0xc0003c6480}, {0x5eed40, 0xc0005d6180})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x3)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 583 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004ce790, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x5f86a0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e6000, 0x1)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 848 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d03e0, {0x63ca5c?, 0x406620?}, {0x5eee40, 0xc00026bf00}, {0x5eee80, 0xc0001f5380})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x4)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 406 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb6c0, {0x63ca5c?, 0xc0002df680?}, {0x5eee40, 0xc00035e1c0}, {0x5eee80, 0xc0003b8b00})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x0)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 230 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0001ffc90, 0xc)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).applier(0xc0003a8000)
+	/root/6.824/src/raft/raft.go:639 +0x17f
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:706 +0x50a
+
+goroutine 231 [chan receive]:
+6.824/raft.(*config).applier(0xc0003a4000, 0x0, 0x0?)
+	/root/6.824/src/raft/config.go:162 +0x8d
+created by 6.824/raft.(*config).start1
+	/root/6.824/src/raft/config.go:328 +0x62e
+
+goroutine 232 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0001ffe90, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0003a80f0, 0x0)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 233 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0001ffed0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0003a80f0, 0x2)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 235 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0001ffe50, 0xf)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).applier(0xc0003a80f0)
+	/root/6.824/src/raft/raft.go:639 +0x17f
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:706 +0x50a
+
+goroutine 236 [chan receive]:
+6.824/raft.(*config).applier(0xc0003a4000, 0x1, 0x0?)
+	/root/6.824/src/raft/config.go:162 +0x8d
+created by 6.824/raft.(*config).start1
+	/root/6.824/src/raft/config.go:328 +0x62e
+
+goroutine 237 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0003b4090, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0003a81e0, 0x0)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 238 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0003b40d0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0003a81e0, 0x1)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 1081 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0540, {0x63ca5c?, 0x5f86a0?}, {0x5eee40, 0xc0005d6620}, {0x5eee80, 0xc0003416f0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x4)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 240 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0003b4050, 0xa)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).applier(0xc0003a81e0)
+	/root/6.824/src/raft/raft.go:639 +0x17f
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:706 +0x50a
+
+goroutine 241 [chan receive]:
+6.824/raft.(*config).applier(0xc0003a4000, 0x2, 0x0?)
+	/root/6.824/src/raft/config.go:162 +0x8d
+created by 6.824/raft.(*config).start1
+	/root/6.824/src/raft/config.go:328 +0x62e
+
+goroutine 442 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb700, {0x63ca5c?, 0x406620?}, {0x5eee40, 0xc00038d9c0}, {0x5eee80, 0xc0003b8e20})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x2)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 512 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb700, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0004b27c0}, {0x5eed40, 0xc0004b4420})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a80f0, 0x2)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1041 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0620, {0x63d3bf?, 0x0?}, {0x5eed00, 0xc0003753c0}, {0x5eed40, 0xc0002e3360})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 806 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0bc0, {0x63d3bf?, 0xc000447c80?}, {0x5eed00, 0xc000153c00}, {0x5eed40, 0xc00001c960})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1055 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d03e0, {0x63ca5c?, 0xc0000d26c0?}, {0x5eee40, 0xc0005d61c0}, {0x5eee80, 0xc000341250})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x4)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 1146 [runnable]:
+6.824/raft.(*Raft).AppendEntries(0xc0004e63c0, 0xc000174980, 0xc000172500)
+	/root/6.824/src/raft/raft.go:441 +0x602
+reflect.Value.call({0xc0000763c0?, 0xc0004fa048?, 0xc00064fb10?}, {0x639b70, 0x4}, {0xc00064fc68, 0x3, 0xc00064fb40?})
+	/usr/lib/go/src/reflect/value.go:586 +0xb0b
+reflect.Value.Call({0xc0000763c0?, 0xc0004fa048?, 0xc0002d4ee8?}, {0xc00064fc68?, 0x0?, 0x0?})
+	/usr/lib/go/src/reflect/value.go:370 +0xbc
+6.824/labrpc.(*Service).dispatch(0xc0004cf600, {0x63d3c4, 0xd}, {{0x5f86a0, 0xc00048bb20}, {0x63d3bf, 0x12}, {0x688d00, 0x5eed00}, {0xc0003eda00, ...}, ...})
+	/root/6.824/src/labrpc/labrpc.go:496 +0x38e
+6.824/labrpc.(*Server).dispatch(0xc0004d44b0, {{0x5f86a0, 0xc00048bb20}, {0x63d3bf, 0x12}, {0x688d00, 0x5eed00}, {0xc0003eda00, 0xc1, 0x100}, ...})
+	/root/6.824/src/labrpc/labrpc.go:420 +0x1fe
+6.824/labrpc.(*Network).processReq.func1()
+	/root/6.824/src/labrpc/labrpc.go:240 +0x58
+created by 6.824/labrpc.(*Network).processReq
+	/root/6.824/src/labrpc/labrpc.go:239 +0x1d2
+
+goroutine 1053 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d03a0, {0x63ca5c?, 0x406620?}, {0x5eee40, 0xc0005d61c0}, {0x5eee80, 0xc0003b8770})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x2)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 879 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d09a0, {0x63ca5c?, 0xc00026d500?}, {0x5eee40, 0xc00001ce80}, {0x5eee80, 0xc000018da0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x6)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 1091 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0640, {0x63d3bf?, 0xc00058b700?}, {0x5eed00, 0xc0001bcd00}, {0x5eed40, 0xc000197400})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 253 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7c0, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc0003b5880}, {0x5eed40, 0xc00038d920})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 923 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0640, {0x63ca5c?, 0x406620?}, {0x5eee40, 0xc000097fe0}, {0x5eee80, 0xc000099fb0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x1)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 1125 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0500, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0005ee1c0}, {0x5eed40, 0xc0005d6a80})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e60f0, 0x2)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 506 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7c0, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc0004b2000}, {0x5eed40, 0xc0004b4000})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 489 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7a0, {0x63d3bf?, 0x0?}, {0x5eed00, 0xc00048d940}, {0x5eed40, 0xc0002e3fa0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1042 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0640, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc000375580}, {0x5eed40, 0xc0002e3380})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1093 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06a0, {0x63d3bf?, 0xc00032f500?}, {0x5eed00, 0xc0003c7380}, {0x5eed40, 0xc0005d6600})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x4)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 505 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7a0, {0x63d3bf?, 0x0?}, {0x5eed00, 0xc000375180}, {0x5eed40, 0xc00035e760})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1073 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0420, {0x63ca5c?, 0xc000583140?}, {0x5eee40, 0xc0005d61c0}, {0x5eee80, 0xc0003411f0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x6)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 1035 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06e0, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc000375d00}, {0x5eed40, 0xc0002e3860})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x6)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 824 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0bc0, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc000153880}, {0x5eed40, 0xc00001c920})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 845 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0380, {0x63ca5c?, 0xc00025afb8?}, {0x5eee40, 0xc00026bf00}, {0x5eee80, 0xc0001f5320})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x1)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 997 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0620, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc000375000}, {0x5eed40, 0xc0002e3320})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 400 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7c0, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc000356d80}, {0x5eed40, 0xc00035e160})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 429 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7a0, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc000357900}, {0x5eed40, 0xc00035e220})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 430 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7c0, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc00048c8c0}, {0x5eed40, 0xc0002e3e60})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1092 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0680, {0x63d3bf?, 0x0?}, {0x5eed00, 0xc0001bd080}, {0x5eed40, 0xc000197440})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x3)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 413 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7c0, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc000357ac0}, {0x5eed40, 0xc00035e240})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1095 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06e0, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0001bc980}, {0x5eed40, 0xc0001973c0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x6)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1083 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0580, {0x63ca5c?, 0xc0000d26c0?}, {0x5eee40, 0xc0005d6620}, {0x5eee80, 0xc000341690})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x6)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 922 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0620, {0x63ca5c?, 0xc0004effb8?}, {0x5eee40, 0xc000097fe0}, {0x5eee80, 0xc000099f50})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x0)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 1031 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0640, {0x63d3bf?, 0xc0000d26c0?}, {0x5eed00, 0xc0003c6680}, {0x5eed40, 0xc0005d61a0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 452 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7c0, {0x63d3bf?, 0x0?}, {0x5eed00, 0xc00048cc40}, {0x5eed40, 0xc0002e3ea0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 455 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7a0, {0x63d3bf?, 0x0?}, {0x5eed00, 0xc0003c6780}, {0x5eed40, 0xc00038da20})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 866 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0c20, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc000278140}, {0x5eed40, 0xc00001c9c0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x4)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 458 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb600, {0x63ca5c?, 0x0?}, {0x5eee40, 0xc0002e3f00}, {0x5eee80, 0xc000341e30})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x1)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 550 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7c0, {0x63d3bf?, 0xc0004a2d80?}, {0x5eed00, 0xc0004b3100}, {0x5eed40, 0xc0004b4920})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 464 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb700, {0x63ca5c?, 0x406620?}, {0x5eee40, 0xc0002e3f60}, {0x5eee80, 0xc0004810c0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x2)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 490 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7c0, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc0003c7000}, {0x5eed40, 0xc00038daa0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 930 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0420, {0x63ca5c?, 0xc000583b00?}, {0x5eee40, 0xc00026bf00}, {0x5eee80, 0xc0001f52c0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x6)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 865 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0c00, {0x63d3bf?, 0x0?}, {0x5eed00, 0xc000153f80}, {0x5eed40, 0xc00001c9a0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x3)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 584 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004ce7d0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x3000000005eed00?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e6000, 0x2)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 477 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0001fb7a0, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc00048db00}, {0x5eed40, 0xc0002e3fc0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0003a81e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 874 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d08e0, {0x63ca5c?, 0xc000604fb8?}, {0x5eee40, 0xc00001ce80}, {0x5eee80, 0xc000018ec0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x0)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 967 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0620, {0x63d3bf?, 0x0?}, {0x5eed00, 0xc000374340}, {0x5eed40, 0xc0002e2e20})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 877 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0940, {0x63ca5c?, 0x5f86a0?}, {0x5eee40, 0xc00001ce80}, {0x5eee80, 0xc000018e00})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x3)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 998 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0640, {0x63d3bf?, 0xc0002def00?}, {0x5eed00, 0xc000375200}, {0x5eed40, 0xc0002e3340})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 582 [select]:
+6.824/labrpc.MakeNetwork.func1()
+	/root/6.824/src/labrpc/labrpc.go:153 +0xb8
+created by 6.824/labrpc.MakeNetwork
+	/root/6.824/src/labrpc/labrpc.go:151 +0x17c
+
+goroutine 876 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0920, {0x63ca5c?, 0x5f86a0?}, {0x5eee40, 0xc00001ce80}, {0x5eee80, 0xc000099420})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x2)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 809 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0c20, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0002db200}, {0x5eed40, 0xc000097a80})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x4)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1159 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0580, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0005ee380}, {0x5eed40, 0xc0005d6aa0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e60f0, 0x6)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 585 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004ce810, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e6000, 0x3)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 586 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004ce850, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e6000, 0x4)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 808 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0c00, {0x63d3bf?, 0xc000447800?}, {0x5eed00, 0xc00031d400}, {0x5eed40, 0xc00032cca0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x3)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 587 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004ce890, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e6000, 0x5)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 588 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004ce8d0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e6000, 0x6)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 589 [select]:
+6.824/raft.(*Raft).ticker(0xc0004e6000)
+	/root/6.824/src/raft/raft.go:614 +0x78
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:703 +0x4cd
+
+goroutine 590 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004ce750, 0xd)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x40e267?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).applier(0xc0004e6000)
+	/root/6.824/src/raft/raft.go:639 +0x17f
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:706 +0x50a
+
+goroutine 591 [chan receive]:
+6.824/raft.(*config).applier(0xc0000da140, 0x0, 0x7fb008?)
+	/root/6.824/src/raft/config.go:162 +0x8d
+created by 6.824/raft.(*config).start1
+	/root/6.824/src/raft/config.go:328 +0x62e
+
+goroutine 592 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cead0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e60f0, 0x0)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 609 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004ceb10, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x5eed00?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e60f0, 0x2)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 610 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004ceb50, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x5eed00?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e60f0, 0x3)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 611 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004ceb90, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x5eed00?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e60f0, 0x4)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 612 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cebd0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e60f0, 0x5)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 613 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cec10, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e60f0, 0x6)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 614 [select]:
+6.824/raft.(*Raft).ticker(0xc0004e60f0)
+	/root/6.824/src/raft/raft.go:614 +0x78
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:703 +0x4cd
+
+goroutine 615 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cea90, 0x5)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).applier(0xc0004e60f0)
+	/root/6.824/src/raft/raft.go:639 +0x17f
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:706 +0x50a
+
+goroutine 616 [chan receive]:
+6.824/raft.(*config).applier(0xc0000da140, 0x1, 0x0?)
+	/root/6.824/src/raft/config.go:162 +0x8d
+created by 6.824/raft.(*config).start1
+	/root/6.824/src/raft/config.go:328 +0x62e
+
+goroutine 617 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cee10, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e61e0, 0x0)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 618 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cee50, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e61e0, 0x1)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 619 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cee90, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e61e0, 0x3)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 620 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004ceed0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e61e0, 0x4)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 621 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cef10, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e61e0, 0x5)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 622 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cef50, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e61e0, 0x6)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 623 [select]:
+6.824/raft.(*Raft).ticker(0xc0004e61e0)
+	/root/6.824/src/raft/raft.go:614 +0x78
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:703 +0x4cd
+
+goroutine 624 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cedd0, 0xb)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).applier(0xc0004e61e0)
+	/root/6.824/src/raft/raft.go:639 +0x17f
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:706 +0x50a
+
+goroutine 625 [chan receive]:
+6.824/raft.(*config).applier(0xc0000da140, 0x2, 0x0?)
+	/root/6.824/src/raft/config.go:162 +0x8d
+created by 6.824/raft.(*config).start1
+	/root/6.824/src/raft/config.go:328 +0x62e
+
+goroutine 626 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf150, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e62d0, 0x0)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 627 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf190, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e62d0, 0x1)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 628 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf1d0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e62d0, 0x2)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 629 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf210, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e62d0, 0x4)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 630 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf250, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e62d0, 0x5)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 631 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf290, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e62d0, 0x6)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 632 [select]:
+6.824/raft.(*Raft).ticker(0xc0004e62d0)
+	/root/6.824/src/raft/raft.go:614 +0x78
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:703 +0x4cd
+
+goroutine 633 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf110, 0xe)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).applier(0xc0004e62d0)
+	/root/6.824/src/raft/raft.go:639 +0x17f
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:706 +0x50a
+
+goroutine 634 [chan receive]:
+6.824/raft.(*config).applier(0xc0000da140, 0x3, 0x0?)
+	/root/6.824/src/raft/config.go:162 +0x8d
+created by 6.824/raft.(*config).start1
+	/root/6.824/src/raft/config.go:328 +0x62e
+
+goroutine 635 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf490, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e63c0, 0x0)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 636 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf4d0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e63c0, 0x1)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 637 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf510, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e63c0, 0x2)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 638 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf550, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e63c0, 0x3)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 639 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf590, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e63c0, 0x5)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 640 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf5d0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e63c0, 0x6)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 641 [select]:
+6.824/raft.(*Raft).ticker(0xc0004e63c0)
+	/root/6.824/src/raft/raft.go:614 +0x78
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:703 +0x4cd
+
+goroutine 642 [runnable]:
+sync.runtime_notifyListWait(0xc0004cf450, 0xb)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).applier(0xc0004e63c0)
+	/root/6.824/src/raft/raft.go:639 +0x17f
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:706 +0x50a
+
+goroutine 643 [chan receive]:
+6.824/raft.(*config).applier(0xc0000da140, 0x4, 0x0?)
+	/root/6.824/src/raft/config.go:162 +0x8d
+created by 6.824/raft.(*config).start1
+	/root/6.824/src/raft/config.go:328 +0x62e
+
+goroutine 644 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf7d0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e64b0, 0x0)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 645 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf810, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e64b0, 0x1)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 646 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf850, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e64b0, 0x2)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 647 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf890, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e64b0, 0x3)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 648 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf8d0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e64b0, 0x4)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 649 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf910, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e64b0, 0x6)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 650 [select]:
+6.824/raft.(*Raft).ticker(0xc0004e64b0)
+	/root/6.824/src/raft/raft.go:614 +0x78
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:703 +0x4cd
+
+goroutine 651 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cf790, 0x12)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).applier(0xc0004e64b0)
+	/root/6.824/src/raft/raft.go:639 +0x17f
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:706 +0x50a
+
+goroutine 652 [chan receive]:
+6.824/raft.(*config).applier(0xc0000da140, 0x5, 0x0?)
+	/root/6.824/src/raft/config.go:162 +0x8d
+created by 6.824/raft.(*config).start1
+	/root/6.824/src/raft/config.go:328 +0x62e
+
+goroutine 653 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cfb10, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e65a0, 0x0)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 654 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cfb50, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e65a0, 0x1)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 655 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cfb90, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e65a0, 0x2)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 656 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cfbd0, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e65a0, 0x3)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 657 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cfc10, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e65a0, 0x4)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 658 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cfc50, 0x0)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).replicator(0xc0004e65a0, 0x5)
+	/root/6.824/src/raft/raft.go:540 +0xfc
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:698 +0x474
+
+goroutine 659 [select]:
+6.824/raft.(*Raft).ticker(0xc0004e65a0)
+	/root/6.824/src/raft/raft.go:614 +0x78
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:703 +0x4cd
+
+goroutine 660 [sync.Cond.Wait]:
+sync.runtime_notifyListWait(0xc0004cfad0, 0x5)
+	/usr/lib/go/src/runtime/sema.go:527 +0x14c
+sync.(*Cond).Wait(0x0?)
+	/usr/lib/go/src/sync/cond.go:70 +0x8c
+6.824/raft.(*Raft).applier(0xc0004e65a0)
+	/root/6.824/src/raft/raft.go:639 +0x17f
+created by 6.824/raft.Make
+	/root/6.824/src/raft/raft.go:706 +0x50a
+
+goroutine 661 [chan receive]:
+6.824/raft.(*config).applier(0xc0000da140, 0x6, 0x0?)
+	/root/6.824/src/raft/config.go:162 +0x8d
+created by 6.824/raft.(*config).start1
+	/root/6.824/src/raft/config.go:328 +0x62e
+
+goroutine 899 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0ba0, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc0002f21c0}, {0x5eed40, 0xc00026ba20})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 750 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0bc0, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc00031cc80}, {0x5eed40, 0xc00032c7c0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1090 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0620, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0001bcb40}, {0x5eed40, 0xc0001973e0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1155 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0500, {0x63d3bf?, 0xc00059f880?}, {0x5eed00, 0xc000174480}, {0x5eed40, 0xc000172260})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e60f0, 0x2)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1157 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0540, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0001742c0}, {0x5eed40, 0xc000172240})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e60f0, 0x4)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1079 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0500, {0x63ca5c?, 0xc00032f500?}, {0x5eee40, 0xc0005d6620}, {0x5eee80, 0xc0004815a0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x2)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 817 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0c20, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0002da2c0}, {0x5eed40, 0xc0000970c0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x4)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 781 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0c20, {0x63d3bf?, 0xc000447140?}, {0x5eed00, 0xc0002da100}, {0x5eed40, 0xc0000970a0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x4)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 900 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0bc0, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0002dbe80}, {0x5eed40, 0xc000097f80})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 780 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0c00, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc000509f00}, {0x5eed40, 0xc00035f940})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x3)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1034 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06c0, {0x63d3bf?, 0xc0000c5e00?}, {0x5eed00, 0xc0004ce240}, {0x5eed40, 0xc0002e38c0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x5)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 778 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0bc0, {0x63d3bf?, 0xc0004475c0?}, {0x5eed00, 0xc000152f40}, {0x5eed40, 0xc00001c420})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 887 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0620, {0x63d3bf?, 0xc00058af00?}, {0x5eed00, 0xc0003562c0}, {0x5eed40, 0xc00001dc60})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 929 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0400, {0x63ca5c?, 0x406620?}, {0x5eee40, 0xc00026bf00}, {0x5eee80, 0xc0001f53e0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x5)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 908 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d04c0, {0x63ca5c?, 0x5f86a0?}, {0x5eee40, 0xc000097fa0}, {0x5eee80, 0xc000099a20})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x0)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 1117 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0640, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc000174100}, {0x5eed40, 0xc000172220})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1009 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d04c0, {0x63ca5c?, 0x0?}, {0x5eee40, 0xc0004b4e20}, {0x5eee80, 0xc0002ccd50})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x0)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 827 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0c20, {0x63d3bf?, 0x0?}, {0x5eed00, 0xc000153a40}, {0x5eed40, 0xc00001c940})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e65a0, 0x4)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1104 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0640, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc0000fc540}, {0x5eed40, 0xc0002e3da0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1012 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0540, {0x63ca5c?, 0xc000390540?}, {0x5eee40, 0xc0004b4e20}, {0x5eee80, 0xc00030fef0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x4)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 909 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0500, {0x63ca5c?, 0xc0000c4780?}, {0x5eee40, 0xc000097fa0}, {0x5eee80, 0xc000099b40})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x2)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 911 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0540, {0x63ca5c?, 0x5f86a0?}, {0x5eee40, 0xc000097fa0}, {0x5eee80, 0xc000099a80})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x4)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 912 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0560, {0x63ca5c?, 0x5f86a0?}, {0x5eee40, 0xc000097fa0}, {0x5eee80, 0xc000099ae0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x5)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 913 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0580, {0x63ca5c?, 0x5f86a0?}, {0x5eee40, 0xc000097fa0}, {0x5eee80, 0xc0000999c0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x6)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 1106 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06a0, {0x63d3bf?, 0xc00058b700?}, {0x5eed00, 0xc0001bd400}, {0x5eed40, 0xc000197480})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x4)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1058 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0640, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc0001bc040}, {0x5eed40, 0xc000196fa0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x1)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1059 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0680, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc000357e40}, {0x5eed40, 0xc000196f80})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x3)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1060 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06a0, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0004ce940}, {0x5eed40, 0xc0002e3900})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x4)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 862 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0620, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc00048c1c0}, {0x5eed40, 0xc00038c800})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1105 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0680, {0x63d3bf?, 0x406620?}, {0x5eed00, 0xc0000fc380}, {0x5eed40, 0xc0002e3d60})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x3)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1107 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06c0, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0001bd5c0}, {0x5eed40, 0xc0001974a0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x5)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1014 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0580, {0x63ca5c?, 0xc000373c80?}, {0x5eee40, 0xc0004b4e20}, {0x5eee80, 0xc00030fe90})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendRequestVote(...)
+	/root/6.824/src/raft/raft.go:358
+6.824/raft.(*Raft).startElection.func1(0x6)
+	/root/6.824/src/raft/raft.go:582 +0xa9
+created by 6.824/raft.(*Raft).startElection
+	/root/6.824/src/raft/raft.go:580 +0x193
+
+goroutine 1061 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06c0, {0x63d3bf?, 0x0?}, {0x5eed00, 0xc0004cf340}, {0x5eed40, 0xc0002e3920})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x5)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1062 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06e0, {0x63d3bf?, 0xc0002def00?}, {0x5eed00, 0xc0004ce400}, {0x5eed40, 0xc0002e38e0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x6)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1108 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06e0, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0001bd240}, {0x5eed40, 0xc000197460})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x6)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1118 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0680, {0x63d3bf?, 0xc0001c86c0?}, {0x5eed00, 0xc0004b3f40}, {0x5eed40, 0xc000172200})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x3)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1116 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d0620, {0x63d3bf?, 0xc00032f500?}, {0x5eed00, 0xc0000fd480}, {0x5eed40, 0xc0000fe840})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x0)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1119 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06a0, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0001ce240}, {0x5eed40, 0xc0001979c0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x4)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1120 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06c0, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0001ce400}, {0x5eed40, 0xc0001979e0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x5)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1169 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06e0, {0x63d3bf?, 0xc00058b700?}, {0x5eed00, 0xc0001ce080}, {0x5eed40, 0xc0001979a0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x6)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1178 [sync.RWMutex.Lock]:
+sync.runtime_SemacquireRWMutex(0xc0000ddc00?, 0xc1?, 0x100?)
+	/usr/lib/go/src/runtime/sema.go:87 +0x26
+sync.(*RWMutex).Lock(0xc0004d0680?)
+	/usr/lib/go/src/sync/rwmutex.go:152 +0x71
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x3)
+	/root/6.824/src/raft/raft.go:522 +0x277
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1179 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06a0, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc000174640}, {0x5eed40, 0xc000172280})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x4)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1180 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06c0, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0000fdc00}, {0x5eed40, 0xc0000fed20})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x5)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+
+goroutine 1181 [chan receive]:
+6.824/labrpc.(*ClientEnd).Call(0xc0004d06e0, {0x63d3bf?, 0x5f86a0?}, {0x5eed00, 0xc0001ceb80}, {0x5eed40, 0xc000197ec0})
+	/root/6.824/src/labrpc/labrpc.go:112 +0x246
+6.824/raft.(*Raft).sendAppendEntries(...)
+	/root/6.824/src/raft/raft.go:444
+6.824/raft.(*Raft).replicateOneRound(0xc0004e61e0, 0x6)
+	/root/6.824/src/raft/raft.go:521 +0x266
+created by 6.824/raft.(*Raft).broadcastHeartbeat
+	/root/6.824/src/raft/raft.go:553 +0xad
+exit status 2
+FAIL	6.824/raft	12.390s
