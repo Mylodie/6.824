@@ -238,13 +238,11 @@ func (rf *Raft) InstallSnapshot(request *InstallSnapshotRequest, response *Insta
 		return
 	}
 
-	if request.Term > rf.currentTerm {
+	if request.Term > rf.currentTerm || request.Term == rf.currentTerm && rf.state != followerState {
+		rf.changeState(followerState)
 		rf.currentTerm, rf.votedFor = request.Term, -1
 		rf.persist()
 	}
-
-	rf.changeState(followerState)
-	rf.electionTimer.Reset(RandomizedElectionTimeout())
 
 	// outdated snapshot
 	if request.LastIncludedIndex <= rf.commitIndex {
@@ -269,28 +267,28 @@ func (rf *Raft) sendInstallSnapshot(peerId int, request *InstallSnapshotRequest,
 // A service wants to switch to snapshot.  Only do so if Raft hasn't
 // have more recent info since it communicate the snapshot on applyCh.
 func (rf *Raft) CondInstallSnapshot(lastIncludedTerm int, lastIncludedIndex int, snapshot []byte) bool {
-	//rf.mu.Lock()
-	//defer rf.mu.Unlock()
-	//DPrintf("{Node %v} service calls CondInstallSnapshot with lastIncludedTerm %v and lastIncludedIndex %v to check whether snapshot is still valid in term %v", rf.me, lastIncludedTerm, lastIncludedIndex, rf.currentTerm)
-	//
-	//// outdated snapshot
-	//if lastIncludedIndex <= rf.commitIndex {
-	//	DPrintf("{Node %v} rejects the snapshot which lastIncludedIndex is %v because commitIndex %v is larger", rf.me, lastIncludedIndex, rf.commitIndex)
-	//	return false
-	//}
-	//
-	//if lastIncludedIndex > rf.getLastLog().Index {
-	//	rf.logs = make([]Entry, 1)
-	//} else {
-	//	rf.logs = shrinkEntriesArray(rf.logs[lastIncludedIndex-rf.getFirstLog().Index:])
-	//	rf.logs[0].Command = nil
-	//}
-	//// update dummy entry with lastIncludedTerm and lastIncludedIndex
-	//rf.logs[0].Term, rf.logs[0].Index = lastIncludedTerm, lastIncludedIndex
-	//rf.lastApplied, rf.commitIndex = lastIncludedIndex, lastIncludedIndex
-	//
-	//rf.persister.SaveStateAndSnapshot(rf.encodeState(), snapshot)
-	//DPrintf("{Node %v}'s state is {state %v,term %v,commitIndex %v,lastApplied %v,firstLog %v,lastLog %v} after accepting the snapshot which lastIncludedTerm is %v, lastIncludedIndex is %v", rf.me, rf.state, rf.currentTerm, rf.commitIndex, rf.lastApplied, rf.getFirstLog(), rf.getLastLog(), lastIncludedTerm, lastIncludedIndex)
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	DPrintf("{Node %v} service calls CondInstallSnapshot with lastIncludedTerm %v and lastIncludedIndex %v to check whether snapshot is still valid in term %v", rf.me, lastIncludedTerm, lastIncludedIndex, rf.currentTerm)
+
+	// outdated snapshot
+	if lastIncludedIndex <= rf.commitIndex {
+		DPrintf("{Node %v} rejects the snapshot which lastIncludedIndex is %v because commitIndex %v is larger", rf.me, lastIncludedIndex, rf.commitIndex)
+		return false
+	}
+
+	if lastIncludedIndex > rf.getLastLog().Index {
+		rf.logs = make([]Entry, 1)
+	} else {
+		rf.logs = shrinkEntriesArray(rf.logs[lastIncludedIndex-rf.getFirstLog().Index:])
+		rf.logs[0].Command = nil
+	}
+	// update dummy entry with lastIncludedTerm and lastIncludedIndex
+	rf.logs[0].Term, rf.logs[0].Index = lastIncludedTerm, lastIncludedIndex
+	rf.lastApplied, rf.commitIndex = lastIncludedIndex, lastIncludedIndex
+
+	rf.persister.SaveStateAndSnapshot(rf.encodeState(), snapshot)
+	DPrintf("{Node %v}'s state is {state %v,term %v,commitIndex %v,lastApplied %v,firstLog %v,lastLog %v} after accepting the snapshot which lastIncludedTerm is %v, lastIncludedIndex is %v", rf.me, rf.state, rf.currentTerm, rf.commitIndex, rf.lastApplied, rf.getFirstLog(), rf.getLastLog(), lastIncludedTerm, lastIncludedIndex)
 	return true
 }
 
@@ -493,6 +491,23 @@ func (rf *Raft) advanceCommitIndexForFollower(leaderCommit int) {
 	rf.applyCond.Signal()
 }
 
+func (rf *Raft) updateCommitIndex() {
+	sortedMatchIndex := []int{}
+	for i, v := range rf.matchIndex {
+		if i != rf.me {
+			sortedMatchIndex = append(sortedMatchIndex, v)
+		} else {
+			sortedMatchIndex = append(sortedMatchIndex, rf.getLastLog().Index)
+		}
+	}
+	sort.Ints(sortedMatchIndex)
+	commitIndex := sortedMatchIndex[len(rf.peers)/2]
+	if commitIndex > rf.commitIndex && (commitIndex < rf.getFirstLog().Index || rf.logs[commitIndex-rf.getFirstLog().Index].Term == rf.currentTerm) {
+		rf.commitIndex = commitIndex
+		rf.applyCond.Signal()
+	}
+}
+
 func (rf *Raft) AppendEntries(request *AppendEntriesRequest, response *AppendEntriesResponse) {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
@@ -573,32 +588,18 @@ func (rf *Raft) handleAppendEntriesResponse(peerId int, request *AppendEntriesRe
 	if response.Success {
 		rf.matchIndex[peerId] = request.PrevLogIndex + len(request.Entries)
 		rf.nextIndex[peerId] = rf.matchIndex[peerId] + 1
-
-		sortedMatchIndex := []int{}
-		for i, v := range rf.matchIndex {
-			if i != rf.me {
-				sortedMatchIndex = append(sortedMatchIndex, v)
-			} else {
-				sortedMatchIndex = append(sortedMatchIndex, rf.getLastLog().Index)
-			}
-		}
-		sort.Ints(sortedMatchIndex)
-		commitIndex := sortedMatchIndex[len(rf.peers)/2]
-		if commitIndex > rf.commitIndex && (commitIndex < rf.getFirstLog().Index || rf.logs[commitIndex-rf.getFirstLog().Index].Term == rf.currentTerm) {
-			rf.commitIndex = commitIndex
-			rf.applyCond.Signal()
-		}
+		rf.updateCommitIndex()
 	} else {
 		if response.ConflictTerm != -1 {
 			rf.nextIndex[peerId] = response.ConflictIndex
 		} else {
-			nextIndex := rf.getLastLog().Index
-			for ; nextIndex >= rf.getFirstLog().Index; nextIndex-- {
-				if rf.logs[nextIndex].Term == response.ConflictTerm {
+			nextIndex := request.PrevLogIndex
+			for ; nextIndex > rf.getFirstLog().Index; nextIndex-- {
+				if rf.logs[nextIndex-rf.getFirstLog().Index].Term == response.ConflictTerm {
 					break
 				}
 			}
-			if nextIndex < rf.getFirstLog().Index {
+			if nextIndex <= rf.getFirstLog().Index {
 				rf.nextIndex[peerId] = response.ConflictIndex
 			} else {
 				rf.nextIndex[peerId] = nextIndex
@@ -609,11 +610,31 @@ func (rf *Raft) handleAppendEntriesResponse(peerId int, request *AppendEntriesRe
 }
 
 func (rf *Raft) genInstallSnapshotRequest() *InstallSnapshotRequest {
-	return &InstallSnapshotRequest{}
+	return &InstallSnapshotRequest{
+		Term:              rf.currentTerm,
+		LeaderId:          rf.me,
+		LastIncludedIndex: rf.getFirstLog().Index,
+		LastIncludedTerm:  rf.getFirstLog().Term,
+		Offset:            0,
+		Data:              rf.persister.ReadSnapshot(),
+		Done:              true,
+	}
 }
 
 func (rf *Raft) handleInstallSnapshotResponse(peerId int, request *InstallSnapshotRequest, response *InstallSnapshotResponse) {
-
+	if response.Term > rf.currentTerm {
+		rf.changeState(followerState)
+		rf.currentTerm = response.Term
+		rf.votedFor = -1
+		rf.persist()
+		return
+	}
+	if rf.currentTerm != request.Term || rf.currentTerm != response.Term {
+		return
+	}
+	rf.nextIndex[peerId] = rf.getLastLog().Index + 1
+	rf.matchIndex[peerId] = rf.getLastLog().Index
+	rf.updateCommitIndex()
 }
 
 func (rf *Raft) replicateOneRound(peerId int) {
@@ -622,8 +643,8 @@ func (rf *Raft) replicateOneRound(peerId int) {
 		rf.mu.RUnlock()
 		return
 	}
-	prevLogIndex := rf.nextIndex[peerId] - 1
-	if prevLogIndex < rf.getFirstLog().Index {
+
+	if rf.nextIndex[peerId] <= rf.getFirstLog().Index {
 		// only snapshot can catch up
 		request := rf.genInstallSnapshotRequest()
 		rf.mu.RUnlock()
@@ -634,6 +655,7 @@ func (rf *Raft) replicateOneRound(peerId int) {
 			rf.mu.Unlock()
 		}
 	} else {
+		prevLogIndex := rf.nextIndex[peerId] - 1
 		request := rf.genAppendEntriesRequest(prevLogIndex)
 		rf.mu.RUnlock()
 		response := new(AppendEntriesResponse)
@@ -751,6 +773,22 @@ func (rf *Raft) ticker() {
 
 // a dedicated applier goroutine to guarantee that each log will be push into applyCh exactly once, ensuring that service's applying entries and raft's committing entries can be parallel
 func (rf *Raft) applier() {
+	rf.mu.Lock()
+	applyMsg := &ApplyMsg{
+		CommandValid:  false,
+		Snapshot:      rf.persister.ReadSnapshot(),
+		SnapshotIndex: rf.getFirstLog().Index,
+		SnapshotTerm:  rf.getFirstLog().Term,
+	}
+	if len(applyMsg.Snapshot) != 0 {
+		rf.mu.Unlock()
+		rf.applyCh <- *applyMsg
+		rf.mu.Lock()
+		rf.lastApplied = rf.getFirstLog().Index
+		rf.commitIndex = rf.getFirstLog().Index
+	}
+	rf.mu.Unlock()
+
 	for rf.killed() == false {
 		rf.mu.Lock()
 		// if there is no need to apply entries, just release CPU and wait other goroutine's signal if they commit new entries
@@ -765,7 +803,7 @@ func (rf *Raft) applier() {
 			rf.applyCh <- ApplyMsg{
 				CommandValid: true,
 				Command:      entry.Command,
-				//CommandTerm:  entry.Term,
+				CommandTerm:  entry.Term,
 				CommandIndex: entry.Index,
 			}
 		}
